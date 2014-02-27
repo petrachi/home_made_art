@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  
+  controller :user do
+    get "/users" => :index, as: :users
+    get "/user/:id" => :show, as: :user
+  end
+  
+  controller :product do
+    get "/products" => :index, as: :products
+    get "/product/:id" => :show, as: :product
+  end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
