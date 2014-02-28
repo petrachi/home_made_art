@@ -1,15 +1,31 @@
 Rails.application.routes.draw do
-  
+
+  resources :user
+
   controller :user do
-    get "/users" => :index, as: :users
-    get "/user/:id" => :show, as: :user
+    get "users" => :index, as: :users
+    post "users" => :create
+
+    get "sign_up" => :new, as: :sign_up
   end
-  
+
+  controller :authentication do
+    get "sign_in" => :sign_in, as: :sign_in
+    post "sign_in" => :log_in
+    get "sign_out" => :sign_out, as: :sign_out
+
+    # forgot_password
+    # change_password
+    # password_sent
+  end
+
   controller :product do
-    get "/products" => :index, as: :products
-    get "/product/:id" => :show, as: :product
+    get "products" => :index, as: :products
+    get "product/:id" => :show, as: :product
   end
-  
+
+  root to: "product#index"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
