@@ -19,9 +19,12 @@ Rails.application.routes.draw do
     # password_sent
   end
 
+
+  resources :product
+
   controller :product do
     get "products" => :index, as: :products
-    get "product/:id" => :show, as: :product
+    post "products" => :create
   end
 
   root to: "product#index"

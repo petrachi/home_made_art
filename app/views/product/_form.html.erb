@@ -1,0 +1,6 @@
+<%= simple_form_for @product do |f| %>
+  <%= f.association :user %>
+  <%= f.input :name %>
+  <%= f.input :price %>
+  <%= f.button :submit %>
+<% end %>

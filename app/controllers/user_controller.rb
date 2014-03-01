@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+
   def index
     @users = User.all
   end
@@ -31,7 +32,7 @@ class UserController < ApplicationController
     @user = User.find params[:id]
 
     if @user.update_attributes user_params
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: :new
     end

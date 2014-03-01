@@ -14,6 +14,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 
+gem 'compass-rails'
+gem 'font-awesome-rails', '~> 3.2.1'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -34,8 +37,8 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# gem 'r_kit'
-gem 'r_kit', path: '/Users/elPetrachi/Dev/r_kit'
+gem 'r_kit'
+# gem 'r_kit', path: '/Users/elPetrachi/Dev/r_kit'
 gem 'simple_form'
 
 gem 'newrelic_rpm'

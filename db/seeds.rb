@@ -8,9 +8,9 @@
 
 u = User.create name: 'Thomas', email: 'thomas@hma.fr', password: 'youpi'
 
-Product.create user: u, title: 'Painting', price: 450
-Product.create user: u, title: 'Drawing', price: 15
-Product.create user: u, title: 'Crafting', price: 60
+Product.create user: u, name: 'Painting', price: 450
+Product.create user: u, name: 'Drawing', price: 15
+Product.create user: u, name: 'Crafting', price: 60
 
 
 
