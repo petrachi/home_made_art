@@ -37,11 +37,12 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# gem 'r_kit', '0.2.1.1'
-gem 'r_kit', path: '/Users/elPetrachi/Dev/r_kit'
+gem 'r_kit', '0.2.1.1'
+# gem 'r_kit', path: '/Users/elPetrachi/Dev/r_kit'
 gem 'simple_form'
 
 gem 'newrelic_rpm'
 gem 'rails_12factor', group: :production
+gem 'pry-rails', group: :development
 
 ruby "2.1.1"
