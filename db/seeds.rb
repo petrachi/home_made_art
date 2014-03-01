@@ -8,17 +8,28 @@
 
 u = User.create name: 'Thomas', email: 'thomas@hma.fr', password: 'youpi'
 
-Product.create user: u, name: 'Painting', price: 450
-Product.create user: u, name: 'Drawing', price: 15
-Product.create user: u, name: 'Crafting', price: 60
+c = Category.create name: 'Wood Stuff'
 
+Product.create user: u, category: c,
+  name: 'Painting',
+  brief: 'It\'s a painting',
+  descr: %q{
+    A beatifull painting,
+    Of a milf, half naked.
+  },
+  price: 450,
+  stock: 1,
+  public: true,
+  published: true
 
-
-
-=begin
-
-next to do :
-- setup r_kit
-- create / edit product forms
-
-=end
+Product.create user: u, category: c,
+  name: 'Crafting',
+  brief: 'A piece of craft',
+  descr: %q{
+    I am crafting all day,
+    I want some money out of that.
+  },
+  price: 60,
+  stock: 100,
+  public: true,
+  published: true

@@ -17,7 +17,7 @@ class AuthenticationController < ApplicationController
 
   def sign_out
     session[:user_id] = nil
-    redirect_to root_path, notice: "You have signed out."
+    redirect_to root_url, notice: "You have signed out."
   end
 
 

@@ -1,11 +1,11 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find params[:id]
   end
 
 
@@ -25,12 +25,9 @@ class UserController < ApplicationController
 
 
   def edit
-    @user = User.find params[:id]
   end
 
   def update
-    @user = User.find params[:id]
-
     if @user.update_attributes user_params
       redirect_to @user, notice: 'User was successfully updated.'
     else
@@ -38,7 +35,16 @@ class UserController < ApplicationController
     end
   end
 
-  # destroy
+
+  def destroy
+    @user.destroy
+    redirect_to categories_url
+  end
+
+
+  private def set_product
+    @user = User.find params[:id]
+  end
 
   private def user_params
     params.require(:user).permit(:name, :email, :password)

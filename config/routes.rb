@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :user
+  resources :users, :products, :categories
 
   controller :user do
-    get "users" => :index, as: :users
-    post "users" => :create
-
     get "sign_up" => :new, as: :sign_up
   end
 
@@ -17,14 +14,6 @@ Rails.application.routes.draw do
     # forgot_password
     # change_password
     # password_sent
-  end
-
-
-  resources :product
-
-  controller :product do
-    get "products" => :index, as: :products
-    post "products" => :create
   end
 
   root to: "product#index"
