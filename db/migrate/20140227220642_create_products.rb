@@ -1,12 +1,13 @@
 class CreateProducts < ActiveRecord::Migration
   def change
     create_table :products do |t|
-      t.references :user
-      t.references :category
+      t.references :user, index: true
+      t.references :category, index: true
 
-      t.string :name
+      t.string :title
       t.string :brief
       t.text :descr
+      t.hstore :properties
 
       t.integer :price
       t.integer :stock
@@ -16,8 +17,5 @@ class CreateProducts < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    add_index :products, :user_id
-    add_index :products, :category_id
   end
 end

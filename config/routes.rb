@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :users, :products, :categories
 
-  controller :user do
+  controller :users do
     get "sign_up" => :new, as: :sign_up
   end
 
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     # password_sent
   end
 
-  root to: "product#index"
+  root to: "products#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

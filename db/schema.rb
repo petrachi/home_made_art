@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227220642) do
+ActiveRecord::Schema.define(version: 20140308045318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -28,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140227220642) do
     t.string   "name"
     t.string   "brief"
     t.text     "descr"
+    t.hstore   "properties"
     t.integer  "price"
     t.integer  "stock"
     t.boolean  "public"
@@ -38,6 +40,20 @@ ActiveRecord::Schema.define(version: 20140227220642) do
 
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
+
+  create_table "products_tags", force: true do |t|
+    t.integer "product_id"
+    t.integer "tag_id"
+  end
+
+  add_index "products_tags", ["product_id"], name: "index_products_tags_on_product_id", using: :btree
+  add_index "products_tags", ["tag_id"], name: "index_products_tags_on_tag_id", using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

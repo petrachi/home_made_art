@@ -8,10 +8,15 @@
 
 u = User.create name: 'Thomas', email: 'thomas@hma.fr', password: 'youpi'
 
-c = Category.create name: 'Wood Stuff'
+c = Category.create title: 'Wood Stuff'
+
+Tag.create title: 'video games'
+Tag.create title: 'forest'
+t = Tag.create title: 'knife painting'
+
 
 Product.create user: u, category: c,
-  name: 'Painting',
+  title: 'Painting',
   brief: 'It\'s a painting',
   descr: %q{
     A beatifull painting,
@@ -19,11 +24,17 @@ Product.create user: u, category: c,
   },
   price: 450,
   stock: 1,
+  properties: {
+    big: 'yes',
+    fat: 'yes',
+    weight: 'isaidthiswasfat'
+  },
+  tags: [t],
   public: true,
   published: true
 
 Product.create user: u, category: c,
-  name: 'Crafting',
+  title: 'Crafting',
   brief: 'A piece of craft',
   descr: %q{
     I am crafting all day,
@@ -31,5 +42,8 @@ Product.create user: u, category: c,
   },
   price: 60,
   stock: 100,
+  properties: {
+    weight: '12'
+  },
   public: true,
   published: true

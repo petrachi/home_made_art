@@ -1,5 +1,9 @@
 <%= simple_form_for @product do |f| %>
 
+
+
+
+
   <%= container_tag do %>
     <%= row_tag do %>
 
@@ -7,7 +11,13 @@
 
         <%= f.association :user %>
         <%= f.input :name %>
+        <%= f.input :brief %>
+        <%= f.input :descr %>
         <%= f.input :price %>
+        <%= f.association :category %>
+        <%= f.association :tags %>
+
+        <%= f.input :weight %>
 
       <% end %>
 
