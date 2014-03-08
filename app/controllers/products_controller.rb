@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    @products = @products.search params[:search] if params[:search]
   end
 
   def show

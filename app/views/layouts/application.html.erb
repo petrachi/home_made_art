@@ -7,6 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <p>
+    <%= link_to root_url do %>
+      <i class="icon-home"></i>
+      Home
+    <% end %>
+  </p>
+
   <p class="alert"><%= flash[:alert] %></p>
   <p class="notice"><%= flash[:notice] %></p>
 

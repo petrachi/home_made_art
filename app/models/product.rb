@@ -15,4 +15,6 @@ class Product < ActiveRecord::Base
     self.public = true if self.public.nil?
     self.published = true if self.published.nil?
   end
+
+  searchkick
 end

@@ -40,6 +40,7 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'r_kit', '0.2.1.1'
 # gem 'r_kit', path: '/Users/elPetrachi/Dev/r_kit'
 gem 'simple_form'
+gem 'searchkick'
 
 gem 'newrelic_rpm'
 gem 'rails_12factor', group: :production

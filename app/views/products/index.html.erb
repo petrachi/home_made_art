@@ -1,3 +1,8 @@
+<%= form_tag products_path, method: :get do %>
+  <%= text_field_tag :search %>
+  <%= button_tag :submit %>
+<% end %>
+
 <% @products.each do |product| %>
 	<h2>
 		<%= product.name %>
@@ -6,4 +11,8 @@
   <p>
     Only <%= product.price %>
   </p>
+
+	<p>
+		<%= link_to "Details", product, class: :btn %>
+	</p>
 <% end %>

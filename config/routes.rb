@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :users, :products, :categories
-
-  controller :users do
-    get "sign_up" => :new, as: :sign_up
-  end
-
   controller :authentication do
     get "sign_in" => :sign_in, as: :sign_in
     post "sign_in" => :log_in
@@ -15,6 +9,16 @@ Rails.application.routes.draw do
     # change_password
     # password_sent
   end
+
+  resources :categories
+
+  resources :products
+
+  resources :users
+  controller :users do
+    get "sign_up" => :new, as: :sign_up
+  end
+
 
   root to: "products#index"
 
