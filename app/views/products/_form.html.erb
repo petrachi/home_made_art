@@ -1,4 +1,4 @@
-<%= simple_form_for @product do |f| %>
+<%= simple_form_for @product, html: {multipart: true} do |f| %>
 
 
 
@@ -10,12 +10,16 @@
       <%= col_6_tag do %>
 
         <%= f.association :user %>
-        <%= f.input :name %>
+        <%= f.input :title %>
         <%= f.input :brief %>
         <%= f.input :descr %>
         <%= f.input :price %>
         <%= f.association :category %>
         <%= f.association :tags %>
+
+        <%= f.simple_fields_for :image_files do |img_f| %>
+          <%= img_f.input :file, as: :file %>
+        <% end %>
 
         <%= f.input :weight %>
 

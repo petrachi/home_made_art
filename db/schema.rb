@@ -11,22 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140308045318) do
+ActiveRecord::Schema.define(version: 20140319210751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "categories", force: true do |t|
-    t.string   "name"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "image_files", force: true do |t|
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.string   "file_fingerprint"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "image_files", ["imageable_id", "imageable_type"], name: "index_image_files_on_imageable_id_and_imageable_type", using: :btree
+
   create_table "products", force: true do |t|
     t.integer  "user_id"
     t.integer  "category_id"
-    t.string   "name"
+    t.string   "title"
     t.string   "brief"
     t.text     "descr"
     t.hstore   "properties"

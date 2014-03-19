@@ -5,8 +5,14 @@
 
 <% @products.each do |product| %>
 	<h2>
-		<%= product.name %>
+		<%= product.title %>
 	</h2>
+
+  <p>
+    <% product.image_files.each do |image_file| %>
+      <%= image_tag image_file.file.url %>
+    <% end %>
+  </p>
 
   <p>
     Only <%= product.price %>
@@ -16,3 +22,5 @@
 		<%= link_to "Details", product, class: :btn %>
 	</p>
 <% end %>
+
+<%= link_to "New", new_product_path %>

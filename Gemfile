@@ -42,6 +42,9 @@ gem 'r_kit', '0.2.1.1'
 gem 'simple_form'
 gem 'searchkick'
 
+gem 'paperclip'
+gem 'aws-sdk'
+
 gem 'newrelic_rpm'
 gem 'rails_12factor', group: :production
 gem 'pry-rails', group: :development

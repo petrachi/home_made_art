@@ -12,10 +12,12 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @product.image_files.build
   end
 
   def create
     @product = Product.new product_params
+    @product.image_files.build
 
     if @product.save
       redirect_to @product, notice: 'Product was successfully created.'
@@ -48,6 +50,11 @@ class ProductsController < ApplicationController
   end
 
   private def product_params
-    params.require(:product).permit(:user_id, :category_id, :name, :brief, :descr, :price, :weight)
+    params
+      .require(:product)
+      .permit(
+        :user_id, :category_id, :title, :brief, :descr, :price, :weight,
+        :image_files_attributes => [:file]
+      )
   end
 end
