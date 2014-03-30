@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
 
-  private def set_product
+  private def set_user
     @user = User.find params[:id]
   end
 

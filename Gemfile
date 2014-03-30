@@ -41,6 +41,7 @@ gem 'r_kit', '0.2.1.1'
 # gem 'r_kit', path: '/Users/elPetrachi/Dev/r_kit'
 gem 'simple_form'
 gem 'searchkick'
+gem "select2-rails"
 
 gem 'paperclip'
 gem 'aws-sdk'
