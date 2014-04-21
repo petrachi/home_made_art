@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
   scope :published, where(published: true)
 
   validates :user, :category, :title, :brief, :descr, :weight, presence: true
-  validates :price, presence: true, :numericality => {:greater_than => 4}
+  validates :price, presence: true, numericality: { greater_than: 4}
 
   before_create def set_defaults
     self.stock ||= 1
