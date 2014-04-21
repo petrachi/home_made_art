@@ -1,0 +1,73 @@
+@import "vendor_application";
+@import "lib_application";
+
+$black: #444;
+$white: #999;
+
+.main{
+  $sidebar-width: 18.5em;
+
+  .sidebar{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+    width: $sidebar-width;
+
+    background-color: $black;
+    color: $white;
+
+    .content{
+      padding: 1em;
+
+
+      .links{
+        i{
+          width: 1em;
+        }
+      }
+
+      .action-links{
+        text-align: center;
+      }
+    }
+  }
+
+  .widebar{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    left: $sidebar-width;
+    right: 0;
+
+    overflow: scroll;
+
+    .content{
+      box-sizing: border-box;
+      min-height: 100%;
+      margin-bottom: -4.1em;
+
+      padding: 2em 8em 6.1em;
+
+      h1:first-child{
+        margin-top: 0;
+      }
+    }
+
+    .footer{
+      height: 1.1em;
+      border-top: 1px solid #bbb;
+
+      margin: 1em 8em;
+      padding: .5em 0;
+
+      color: #555;
+
+      text-align: center;
+    }
+  }
+}

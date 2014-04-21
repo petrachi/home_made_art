@@ -15,7 +15,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 gem 'compass-rails'
-gem 'font-awesome-rails', '~> 3.2.1'
+gem 'font-awesome-rails', '~> 4.0.3.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

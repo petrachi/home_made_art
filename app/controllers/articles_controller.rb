@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  layout "users"
+
   before_action :set_user
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 

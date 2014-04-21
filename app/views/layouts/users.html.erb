@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HomeMadeArt</title>
+  <%= stylesheet_link_tag    'users', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div class="main">
+
+    <div class="sidebar">
+
+      <div class="content">
+        <div class="profile">
+          <%= image_tag "http://placehold.it/264x264" %>
+        </div>
+
+        <div class="basic-infos">
+          <h3>
+            Thomas Petrachi <br/>
+            <small>Conding like an artist</small>
+          </h3>
+        </div>
+
+        <div class="links">
+          <p>
+            <%= link_to "/" do %>
+              <%= fa_icon :twitter %>
+              thmszpy
+            <% end %><br>
+
+            <%= link_to "/" do %>
+              <%= fa_icon :facebook %>
+              ThomasP
+            <% end %><br>
+
+            <%= link_to "/" do %>
+              <%= fa_icon "external-link" %>
+              Blog
+            <% end %>
+          </p>
+        </div>
+
+        <div class="brief">
+          Le code, c'est comme l'eau et la terre. La terre, c'est le produit, on peut marcher dessus. Mais le code, c'est comme l'eau, il est fluide et beau et nécéssaire à la vie.
+        </div>
+
+        <p class="action-links">
+          <%= link_to "Demande Personnalisée", "/", class: :btn %>
+        </p>
+
+        <p class="content-links">
+          <%= link_to "About Me", "/" %><br>
+          <%= link_to "Mes Évenements", "/" %><br>
+          <%= link_to "Mes Oeuvres", "/" %>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="widebar">
+      <div class="content">
+        <%= yield %>
+      </div>
+
+      <div class="footer">
+        -- My awesome footer ! - Team HAM --
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

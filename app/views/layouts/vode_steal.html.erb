@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<% if browser.mobile?
+	layout_style = "phone-layout"
+	sidebar_style = "phone-sidebar"
+elsif browser.tablet?
+	layout_style = "tablet-layout"
+	sidebar_style = "tablet-sidebar"
+else
+	layout_style = "desktop-layout"
+	sidebar_style = "desktop-sidebar"
+end
+
+system = browser.windows? ? " windows" : ""%>
+
+<!--[if lt IE 7]><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" class="ie ie6 lt-ie7 lt-ie8 lt-ie9 lt-ie10 <%= I18n.locale %> <%= layout_style %> <%= sidebar_style %><%= system %>"><![endif]-->
+<!--[if IE 7]><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" class="ie ie7 lt-ie8 lt-ie9 lt-ie10 <%= I18n.locale %> <%= layout_style %> <%= sidebar_style %><%= system %>"><![endif]-->
+<!--[if IE 8]><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" class="ie ie8 lt-ie9 lt-ie10 <%= I18n.locale %> <%= layout_style %> <%= sidebar_style %><%= system %><%= system %>"><![endif]-->
+<!--[if IE 9]><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" class="ie ie9 lt-ie10 <%= I18n.locale %> <%= layout_style %> <%= sidebar_style %><%= system %>"><![endif]-->
+<!--[if !IE]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" class="<%= I18n.locale %> <%= layout_style %> <%= sidebar_style %><%= system %>"><!--<![endif]-->
+
+	<head>
+		<%= javascript_include_tag 'ie-detection' %>
+
+		<title>
+  	<%=
+  	  if content_for? :title
+  	    yield :title
+  	  else
+  	    t('v5.meta.titles.generic')
+  	  end
+  	%>
+  	</title>
+  	<meta name="description" content="<%=
+  	  if content_for? :description
+  	    yield :description
+  	  else
+  	    t('v5.meta.descriptions.generic', :nb_videos => Video.count_published("", 100) )
+  	  end
+  	%>"/>
+		<meta charset="utf-8" />
+		<link href="/favicon.ico" rel="icon" type="image/x-icon" />
+
+		<meta name="msapplication-task" content="name=<%= t('v5.generic.home').camelize %>; action-uri=http://www.vodeclic.com/<%=app_dashboard_path%>; icon-uri=http://www.vodeclic.com/favicon.ico" />
+		<meta name="msapplication-task" content="name=<%= t('v5.tools.formation.labels.my_tutorials').camelize %>; action-uri=http://www.vodeclic.com/<%=app_outils_formation_path%>; icon-uri=http://www.vodeclic.com/favicon.ico" />
+		<meta name="msapplication-task" content="name=<%= t('v5.tools.planning.labels.my_timetable').camelize %>; action-uri=http://www.vodeclic.com/<%=app_outils_planning_path%>; icon-uri=http://www.vodeclic.com/favicon.ico" />
+		<meta name="msapplication-task" content="name=<%= t('v5.tools.catalog.labels.tutorials_catalog').camelize %>; action-uri=http://www.vodeclic.com<%=app_formation_catalogue_path%>; icon-uri=http://www.vodeclic.com/favicon.ico" />
+
+		<meta name="application-name" content="Vodeclic.com"/>
+		<meta name="msapplication-TileColor" content="#D62D76"/>
+		<meta name="msapplication-TileImage" content="/assets/win8_tile.png"/>
+
+		<%if request.subdomains.last == "app" && Rails.env == "production" && (yield :robots) != "nofollow"%>
+		 	<meta name="revisit-after" content="7 DAYS"/>
+		 	<meta name="robots" content="index, follow" />
+		<%else%>
+			<meta name="robots" content="noindex, nofollow" />
+		<%end%>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+		<%= csrf_meta_tag %>
+
+
+		<%if browser.ie9? || browser.ie8? || browser.ie7? %>
+			<%= stylesheet_link_tag 'app-ie-bootstrap',
+	    							'app-ie-sprite-1',
+									'app-ie-sprite-2',
+	   					 			'app-ie-1',
+										'app-ie-2'
+			%>
+		<%else%>
+			<%#= include_stylesheets :v5_app%>
+			<%= stylesheet_link_tag :app %>
+		<%end%>
+
+		<!--[if IE 7]>
+			<%= stylesheet_link_tag "font-awesome-ie7.min.css" %>
+		<![endif]-->
+
+		<%= javascript_include_tag :app %>
+
+		<script type="text/javascript">
+			/* Setting i18n for JS*/
+		  	I18n.defaultLocale = "<%= I18n.default_locale %>";
+		  	I18n.locale = "<%= I18n.locale %>";
+		</script>
+
+		<script type="text/javascript" charset="utf-8">
+		    $(document).ready(function(){
+		        $("head").pinify({
+		            applicationName: "Vodeclic.com",
+		            favIcon: "/favicon.ico",
+		            navColor: "#D62D76",
+		            startUrl: "http://www.vodeclic.com",
+		            tooltip: "<%=t "generic.vodeclic.tutorial"%>",
+		            window: "width=1024;height=768"
+		        });
+		    });
+		</script>
+
+		<%compteur = yield(:compteur) %>
+		<%unless compteur%>
+			<%=tracktime(15)%>
+		<%else%>
+			<%=yield(:compteur)%>
+		<%end%>
+
+		<%= yield :head %>
+	</head>
+	<body>
+	  <!-- Google Tag Manager -->
+  	  <script>
+  	    dataLayer = [{}];
+  	    dataLayer.push({
+  	      'event': 'customVar',
+  	      'customVarName': 'Type user',
+  	      'customVarValue': '<%= current_membre.iem_statut.removeaccents %>',
+  	      'customVarScope': 1
+  	    });
+  	  </script>
+  		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5H46RJ"
+  		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  		'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  		})(window,document,'script','dataLayer','GTM-5H46RJ');</script>
+  		<!-- End Google Tag Manager -->
+
+		<!--[if lte IE 6]>
+			 <%= render :partial=>"app/application/ie6_wrapper" %>
+		<![endif]-->
+
+		<!--[if gt IE 6]><!-->
+		<%if is_cloudpro?(current_membre)%>
+			<script type="text/javascript" charset="utf-8" src="<%=OOPS_TOOLBAR_URL%>"></script>
+		<%end%>
+
+		<% session[:layout] = "www/application" %>
+
+
+		<% if current_membre.is_48h_trial? && abonnement_valide?(current_membre) && controller.controller_name.to_s == "formation" %>
+			<div class="alert top-of-global">
+				<button type="button" class="close" data-dismiss="alert" onclick="resetGlobalTop();">&times;</button>
+				<% text = @soldes ? t("www.administration.subscription.get_30_extra_days_long_sales") : t("www.administration.subscription.get_30_extra_days_long") %>
+				<%= link_to text, app_compte_abonnement_path %>
+			</div>
+		<% end %>
+
+		<div id="global" class="<%= 'cloudpro' if is_cloudpro?(current_membre) %>">
+			<nav class="navbar">
+				<div class="navbar-inner">
+					<a class="brand" href="<%=app_dashboard_path%>">
+						<span class="logo tablet-hidden phone-hidden"><%= image_tag "logos/vodeclic.png" %></span><span class="logo tablet-visible"><%= image_tag "v_logo_transparent_bg.png" %></span><span class="logo phone-visible"><i class="icon-reorder more"></i></span><span class="compat"></span>
+					</a>
+
+					<ul class="nav">
+						<li class="divider-vertical"></li>
+						<li class="<%= 'active no-hover' if @navbar == :dashboard %>" data-hover-target>
+							<a href="<%= app_dashboard_path %>">
+								<span class="i-row">
+									<span class="i-container">
+										<i class="v-icon-dashboard<%= @navbar == :dashboard ? '' : '-pink' %>" data-hover-on="v-icon-dashboard" data-hover-off="v-icon-dashboard-pink"></i>
+									</span>
+								</span>
+								<span class="title-row phone-hidden">
+									<%= t('v5.tools.dashboard.labels.dashboard').camelize %>
+								</span>
+							</a>
+						</li>
+						<li class="divider-vertical"></li>
+						<li class="<%= 'active no-hover' if @navbar == :catalogue %>" data-hover-target>
+							<a href="<%=app_formation_catalogue_path%>">
+								<span class="i-row">
+									<span class="i-container">
+										<i class="v-icon-catalogue<%= @navbar == :catalogue ? '' : '-pink' %>" data-hover-on="v-icon-catalogue" data-hover-off="v-icon-catalogue-pink"></i>
+									</span>
+								</span>
+								<span class="title-row phone-hidden">
+									<%= t('v5.tools.catalog.labels.catalog').camelize %>
+								</span>
+							</a>
+						</li>
+						<li class="divider-vertical"></li>
+	<!--
+						<li class="<%#= 'active no-hover' if @navbar == :notification %>" data-hover-target>
+							<a href="<%=app_notification_path%>">
+								<span class="i-row">
+									<span class="i-container">
+										<i class="v-icon-notif<%#= @navbar == :notification ? '' : '-pink' %>" data-hover-on="v-icon-notif" data-hover-off="v-icon-notif-pink"></i>
+									</span>
+								</span>
+								<span class="title-row phone-hidden">
+									<%#= t('v5.tools.notification.labels.notifications').camelize %>
+								</span>
+							</a>
+						</li>
+						<li class="divider-vertical"></li>
+	-->
+					</ul>
+
+					<%= form_tag(app_formation_recherche_path,{:method=>:get, :class =>"form-search pull-right phone-hidden"}) do%>
+						<span class="clearable insert-icon-right insert-icon-left">
+							<input type="text" class="search-query" name="usage" placeholder="<%= t('v5.tools.search.tooltips.long') %>" value="<%= params[:usage] if params[:usage].present? %>">
+							<i class="icon-search left-insert"></i>
+							<i class="icon-remove icon-hover right-insert"></i>
+						</span>
+						<button type="submit" class="btn"><%= I18n.t("v5.generic.ok") %></button>
+					<%end%>
+				</div>
+			</nav>
+
+			<aside class="sidebar v-wrapper">
+				<div class="before-footer">
+
+					<form class="form-search">
+						<span class="clearable insert-icon-right insert-icon-left">
+							<input type="text" class="search-query" placeholder="Rechercher une formation">
+							<i class="icon-search left-insert"></i>
+							<i class="icon-remove icon-hover right-insert"></i>
+						</span>
+					</form>
+
+
+					<% membre = current_membre %>
+
+
+					<% session[:codepromo] = "VODE700" if membre.source.eql?("ms_campus") && is_demo?( membre ) == false && !@soldes %>
+					<% session[:codepromo] = "G60" if membre.source.eql?("groupon") && membre.abonnements.last.abonnementpaiements.last.codepromo_id.present? && !@soldes %>
+
+					<% freq_abo = membre.abonnements.present? ? membre.abonnements.last.freq_abo_str : nil %>
+
+					<% if session[:codepromo].present? && ( !abonnement_valide?(membre) || membre.reabo_auto.blank? || (freq_abo.present? && freq_abo == "1 mois") ) %>
+
+						<% codepromo = Codepromo.find_by_code(session[:codepromo]) %>
+
+						<% url = (abonnement_valide?(membre) && membre.reabo_auto.present? && freq_abo.present? && freq_abo == "1 mois") ? app_compte_abonnement_changement_plan_tarifaire_path(:codepromo => session[:codepromo]) : app_compte_abonnement_path(:codepromo => session[:codepromo], :anchor => "proposed_offer") %>
+
+						<%= link_to url do %>
+							<div class="header_promo tablet-sidebar-hidden">
+								<div class="box_aide">
+									<% if codepromo.code == CODE_SOLDES && @soldes %>
+										<strong><%= FIN_SOLDES.strftime("%-m").to_i < 4 ? t("ecommerce.specials.sales.winter_sales_year", :year => DEBUT_SOLDES.strftime("%Y").to_i) : t("ecommerce.specials.sales.summer_sales_year", :year => DEBUT_SOLDES.strftime("%Y").to_i) %></strong><br/>
+									<% else %>
+										<strong><%=t "ecommerce.specials.special_offer"%></strong><br/>
+									<% end %>
+
+									<%=t "ecommerce.specials.header", :promo => codepromo.pourcentage%>
+								</div>
+							</div>
+						<% end %>
+
+					<% elsif freq_abo == "48 h" %>
+
+						<% fin =  membre.abonnements.last.try(:datetime_fin) %>
+						<% nb_hours_left = fin.present? ? ( (fin - Time.now.utc)/1.hour ).round : 0 %>
+						<%= link_to app_compte_abonnement_path(:codepromo => session[:codepromo]) do %>
+							<div class="header_promo tablet-sidebar-hidden">
+								<div class="box_aide">
+
+									<%# if nb_hours_left > 47 %>
+										<%#= t("www.administration.subscription.trial_started") %>
+									<% if nb_hours_left > 1 %>
+										<%= t("www.administration.subscription.n_hours_left", :nb_hours_left => nb_hours_left ) %>
+									<% elsif nb_hours_left >= 0 %>
+										<%= t("www.administration.subscription.trial_ending") %>
+									<% else %>
+										<%= t("www.administration.subscription.trial_ended") %>
+									<% end %><br/>
+
+									<% if membre.get_30_extra_days %>
+										<%= t("www.administration.subscription.get_30_extra_days") %>
+									<% else %>
+										<%= t("www.administration.subscription.validate_subscription") %>
+									<% end %>
+
+								</div>
+							</div>
+						<% end %>
+
+					<% end %>
+
+
+
+					<div class="user side-section" data-qtip="manual">
+						<h3 class="">
+							<i class="profile"><%= image_tag current_membre.avatar.image(:classic) %></i>
+							<span data-qtip-title><%= current_membre.to_label %></span>
+						</h3>
+
+						<ul class="account" data-qtip-content>
+							<% if has_access_to_compte_profil?( current_membre ) %><li><%=link_to t('v5.tools.profile.labels.my_profile').camelize, app_compte_profil_path %></li><% end %>
+							<% if has_access_to_compte_abonnement?( current_membre ) %><li><%=link_to t('v5.tools.subscription.labels.my_subscription').camelize, app_compte_abonnement_path %></li><% end %>
+							<% if has_access_to_compte_licence?( current_membre ) %><li><%=link_to t('v5.tools.license.labels.my_licenses').camelize, app_compte_licence_path %></li><% end %>
+							<% if has_access_to_compte_facture?( current_membre ) %><li><%=link_to t('v5.tools.invoice.labels.my_invoices').camelize, app_compte_facture_path %></li><% end %>
+							<% if has_access_to_compte_apprenant?( current_membre ) %><li><%=link_to t('v5.tools.user.labels.my_users').camelize, app_compte_apprenant_path %></li><% end %>
+							<% if has_access_to_compte_reporting?( current_membre ) %><li><%=link_to t('v5.tools.insight.labels.insights').camelize, app_compte_reporting_path %></li><% end %>
+						</ul>
+					</div>
+
+					<hr class="clear"/>
+
+
+					<% if TypeContent.accessibles.count > 1 %>
+						<div class="referentiel side-section" data-modal data-modal-size="large" data-hover-target>
+							<span class="text"><%= I18n.t("v5.filter.content_type.labels.specific_content_type", :content_type => TypeContent.current.titre.gsub("Référentiel ", "")).capitalize.html_safe %></span>
+							<span class="icon"><i class="v-icon-referentiel-grey" data-hover-on="v-icon-referentiel" data-hover-off="v-icon-referentiel-grey"></i></span>
+							<div data-modal-content>
+								<div data-modal-header><%= I18n.t("v5.filter.content_type.actions.change") %></div>
+								<div data-modal-body>
+
+									<p class="referentiel-description"><%= I18n.t("v5.filter.content_type.actions.instructions") %></p>
+
+									<ul class="referentiel-choices">
+										<% TypeContent.accessibles.each do |type_content| %>
+											<li data-qtip="manual" data-qtip-fixed="false">
+												<%= link_to( {:action => :switch_live_type_content, :type_content_id => type_content.id, :url => app_dashboard_path }, :class => "no-decoration #{(:current if type_content.id == TypeContent.current_id)}" ) do %>
+													<p class="logo">
+														<%= image_tag type_content.logo? ? type_content.logo.url : "/assets/v-icon/referentiel-grey.png" %>
+													</p>
+													<h5 class="title"><%= type_content.nom %></h5>
+													<p class="description"><%= truncate(type_content.description, :length => 130) %></p>
+												<% end %>
+												<div data-qtip-content><%= type_content.description %></div>
+											</li>
+										<% end %>
+									</ul>
+
+									<div data-wrapper="loader" data-loader="referentiel">
+										<%= render :partial => "app/application/loader_wrapper" %>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<hr/>
+					<% end %>
+
+					<%
+						@sidebar_formations_membre_actifs = current_membre.parcours.visible.all(:conditions=>["packvideomembres.actif = ? AND metasujets.visible = ? AND categ_csps.type_content_id = ?", true, true, TypeContent.current_id], :joins=>[:metasujet => :categ_csps], :group=>"packvideomembres.id", :order=>"date_ajout desc", :select => "metasujets.titre AS m_titre, metasujets.id AS m_id, metasujets.color AS m_color, packvideomembres.metasujet_id")
+
+						@sidebar_plannings = current_membre.membreplannings.by_y_finder(TypeContent.current_id).actif
+						planning_ids = @sidebar_plannings.map(&:id)
+						@sidebar_plannings = @sidebar_plannings.size
+						if @sidebar_plannings > 0
+							@sidebar_plannings_dispo_today = Membreplanningdispo.find(:all, :conditions=>["jour = ? AND membreplannings.id IN (?) AND membreplannings.deleted = ? AND membreplannings.termine = ?", Time.now.utc.in_time_zone(current_membre.time_zone).to_date.wday, planning_ids, false, false], :include=>[:membreplanning => :metasujet], :order=>"heure_debut ASC").group_by(&:membreplanning)
+						end
+
+						list = MsvJoin.by_y_finder(TypeContent.current_id).principals.visible.all(:conditions => ["notes.membre_id = ? AND notes.deleted = ?", current_membre.id, false],
+							:joins => [:metasujet, {:video => :notes}],
+							:order => "notes.updated_at DESC",
+							:select => "msv_joins.metasujet_id as m_id, metasujets.titre as m_title, metasujets.color as m_color"
+						)
+
+						@sidebar_nb_notes = list.size
+
+						@sidebar_list = list.group_by{ |msv| [msv.m_id, msv.m_title, msv.m_color] }
+					%>
+
+					<div class="parcours side-section <%= "active" if @sidebar == :parcours %> <%= 'not-expandable' if @sidebar_formations_membre_actifs.blank? %>" data-hover-target data-qtip="manual">
+						<%= render :partial => "/layouts/app/sidebar/formation.html.erb" %>
+					</div>
+
+					<hr/>
+
+					<div class="planning side-section <%= "active" if @sidebar == :planning %> <%= 'not-expandable' if @sidebar_plannings_dispo_today.blank? %>" data-hover-target data-qtip="manual">
+						<%= render :partial => "/layouts/app/sidebar/planning.html.erb" %>
+					</div>
+
+					<hr/>
+
+					<div class="notes side-section <%= "active" if @sidebar == :notes %> <%= 'not-expandable' if @sidebar_list.blank? %>" data-hover-target data-qtip="manual">
+						<%= render :partial => "/layouts/app/sidebar/notes.html.erb" %>
+					</div>
+
+					<hr/>
+
+					<div class="statistique side-section <%= "active" if @sidebar == :statistique %> not-expandable" data-hover-target data-qtip="manual">
+						<%= render :partial => "/layouts/app/sidebar/statistique.html.erb" %>
+					</div>
+
+					<hr/>
+					<div class="footer-push"></div>
+				</div>
+
+				<div class="footer-container">
+					<div class="footer">
+						<hr class="first"/>
+
+						<%= link_to home_url(:subdomain => "www", :oid => current_membre.iem_oid, :hash => current_membre.iem_hash, :trigger => "footer-contact"), :class => "no-decoration", :target=>"_blank" do %>
+							<h3 data-hover-target>
+								<i class="v-icon-contact-grey" data-hover-on="v-icon-contact" data-hover-off="v-icon-contact-grey"></i><span><%= I18n.t('v5.compte.contact.labels.contact') %></span>
+							</h3>
+						<% end %>
+
+						<hr/>
+						<span class="lang-select" data-qtip="manual"><%= image_tag(Lang.locale.flag.url(:xxsmall)) %>
+							<span class="arrow">▿</span>
+							<div data-qtip-content>
+								<% ( Lang.find(:all, :conditions=>["short_name IN (?)", AVAILABLE_LOCALES_WWW.map(&:to_s)]) - [Lang.locale] ).each do |lang| %>
+									<%= link_to "#{image_tag(lang.flag.url(:xxsmall))}".html_safe, params.merge(:default_lang => "true", :locale=>lang.short_name) %>
+								<% end %>
+							</div>
+						</span>
+						<span class="logout">
+							<%=link_to t('v5.actions.logout'), membre_deconnexion_path() %>
+						</span>
+						<span class="tablet-logout" data-hover-target>
+							<%= link_to "<i class='v-icon-logout-grey' data-hover-on='v-icon-logout' data-hover-off='v-icon-logout-grey'></i>".html_safe, membre_deconnexion_path %>
+						</span>
+					</div>
+				</div>
+
+			</aside>
+
+			<article class="main v-wrapper<%= ' without-footer' unless @with_footer.present? %>">
+				<div class="before-footer">
+					<%= yield %>
+					<%= yield :lister%>
+					<div class="clear footer-push"></div>
+				</div>
+
+				<footer class="footer-container">
+					<div class="footer">
+						<%= link_to t('v5.generic.mobile_version'), "/#{I18n.locale.to_s}/switch_to_mobile?url=#{request.fullpath}"%> - <%= link_to t('v5.generic.legal_notice'), www_support_terms_url(:subdomain => "www"), :target=>"_blank" %> <br/>
+						<%=t('v5.generic.reserved_rights', :date=>"(2007-#{Date.today.strftime("%Y")})") %>
+					</div>
+				</footer>
+			</article>
+
+			<div id="v-modal" class="v-modal modal hide fade" tabindex="-1">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="v-modal-header"></h3>
+				</div>
+
+				<div class="modal-body v-modal-body">
+				</div>
+
+				<div class="modal-footer v-modal-footer">
+				</div>
+
+			</div>
+		</div>
+		<!--<![endif]-->
+
+		<div class="full-overlay"></div>
+	</body>
+</html>
