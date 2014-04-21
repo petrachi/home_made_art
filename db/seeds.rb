@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 u = User.create name: 'Thomas', email: 'thomas@hma.fr', password: 'youpi'
+u = User.create name: 'Adrien', email: 'folie.adrien@gmail.com', password: 'pute'
 
 Tag.create title: 'video games'
 Tag.create title: 'forest'

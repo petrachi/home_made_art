@@ -1,4 +1,4 @@
-<%= simple_form_for(@article) do |f| %>
+<%= simple_form_for([@user, @article]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -7,7 +7,6 @@
     <%= f.input :content %>
     <%= f.input :published %>
     <%= f.input :published_at %>
-    <%= f.association :user %>
   </div>
 
   <div class="form-actions">

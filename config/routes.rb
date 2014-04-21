@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :articles
-
   controller :authentication do
     get "sign_in" => :sign_in, as: :sign_in
     post "sign_in" => :log_in

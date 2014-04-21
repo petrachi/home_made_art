@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world"
+  model:
+    created: "%{class_name} was successfully created."
+    updated: "%{class_name} was successfully updated."
+  account:
+    unauthorized: "Account unauthorized"
