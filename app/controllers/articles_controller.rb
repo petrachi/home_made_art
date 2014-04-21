@@ -43,7 +43,7 @@ class ArticlesController < ApplicationController
   private
 
     def set_article
-      @article = Article.get_by_user(@user.id, params[:id])
+      @article = Article.get_by_user_id(@user.id, params[:id])
     end
 
     def set_user
