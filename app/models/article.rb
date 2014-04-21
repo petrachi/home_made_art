@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   belongs_to :user
   has_many :image_files, as: :imageable
 
-  validates :user_id, :title, presence: true
+  validates :user, :title, presence: true
   validates :brief, :content, presence: true, if: :published
 
   scope :by_user, ->(user) { where(user: user) }
