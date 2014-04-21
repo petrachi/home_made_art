@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :articles
+
   controller :authentication do
     get "sign_in" => :sign_in, as: :sign_in
     post "sign_in" => :log_in
@@ -17,6 +19,10 @@ Rails.application.routes.draw do
   resources :users
   controller :users do
     get "sign_up" => :new, as: :sign_up
+  end
+
+  resources :users do
+    resources :articles
   end
 
 
