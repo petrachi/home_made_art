@@ -7,15 +7,13 @@ class ArticlesController < ApplicationController
     @articles = get_articles
   end
 
-  def show
-  end
+  def show ; end
 
   def new
     @article = Article.new
   end
 
-  def edit
-  end
+  def edit ; end
 
   def create
     @article = Article.new(article_params)
