@@ -1,7 +1,7 @@
 module UserArea
   def self.included(base)
     base.class_eval do
-       layout "users"
+       layout 'users'
 
        before_action :set_user
     end
