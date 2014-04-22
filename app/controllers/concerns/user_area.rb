@@ -1,4 +1,4 @@
-module User
+module UserArea
   def self.included(base)
     base.class_eval do
        layout "users"
