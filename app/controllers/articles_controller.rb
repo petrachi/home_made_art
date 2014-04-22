@@ -1,7 +1,6 @@
 class ArticlesController < ApplicationController
-  layout "users"
-
-  before_action :set_user
+  include UserArea
+  
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :check_ownership!, only: [:edit, :create, :update, :destroy]
 
@@ -46,10 +45,6 @@ class ArticlesController < ApplicationController
       @article = Article.get_by_user_id(@user.id, params[:id])
     end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
-
     def get_articles
       articles = Article.by_user(@user)
       articles = articles.published unless has_ownership?
@@ -64,9 +59,5 @@ class ArticlesController < ApplicationController
       if !has_ownership?
         redirect_to user_articles_url, alert: I18n.t('account.unauthorized')
       end
-    end
-
-    def has_ownership?
-      current_user && @user.id == current_user.id
     end
 end
