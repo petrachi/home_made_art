@@ -4,15 +4,13 @@ describe User do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
-  
-  context "on create" do
-    it "should have password" do
-      begin
-        user = create(:user_without_password)
-      rescue Exception => e
-        message = e.message  
-      end
-      message.should be == 'Validation failed: Password can\'t be blank'
-    end
+  it { should validate_presence_of(:password) }
+ 
+  it "should require password confirmation" do
+    user = build(:user)
+    user.password = '123456'
+    user.password_confirmation = '1234567'
+    user.invalid?
+    user.errors[:password_confirmation].join.should == 'doesn\'t match Password'
   end
 end
