@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   include UserArea
   
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  before_action :check_ownership!, only: [:edit, :create, :update, :destroy]
+  before_action :check_ownership!, only: [:new, :edit, :create, :update, :destroy]
 
   def index
     @articles = get_articles
@@ -53,11 +53,5 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(:title, :brief, :content, :published, :published_at).merge(user_id: current_user.id)
-    end
-
-    def check_ownership!
-      if !has_ownership?
-        redirect_to user_articles_url, alert: I18n.t('account.unauthorized')
-      end
     end
 end
