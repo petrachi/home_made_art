@@ -8,7 +8,7 @@ class Article < ActiveRecord::Base
   scope :by_user, ->(user) { where(user: user) }
   scope :published, -> { where(published: true) }
 
-  def self.get_by_user_id user_id, id
-    find_by(user_id: user_id, id: id)
+  def self.get_by_user_id user, id
+    find_by(user: user, id: id)
   end
 end
