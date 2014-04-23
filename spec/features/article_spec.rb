@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Article Management :' do
+feature 'Article :' do
   given(:user) { create(:user) }
 
   scenario 'Navigation available to user articles' do

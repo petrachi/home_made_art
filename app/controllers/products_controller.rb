@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
     @product.image_files.build
 
     if @product.save
-      redirect_to @product, notice: 'Product was successfully created.'
+      redirect_to @product, notice: I18n.t('model.created', class_name: @product.class)
     else
       render action: :new
     end
@@ -31,8 +31,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update_attributes product_params
-      redirect_to @product, notice: 'Product was successfully updated.'
+    if @product.update product_params
+      redirect_to @product, notice: I18n.t('model.updated', class_name: @product.class)
     else
       render action: :new
     end

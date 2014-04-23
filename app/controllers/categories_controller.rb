@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        redirect_to @category, notice: 'Category was successfully created.'
+        redirect_to @category, notice: I18n.t('model.created', class_name: @category.class)
       else
         render action: :new
       end
@@ -32,7 +32,7 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        redirect_to @category, notice: 'Category was successfully updated.'
+        redirect_to @category, notice: I18n.t('model.updated', class_name: @category.class)
       else
         render action: :edit
       end

@@ -26,3 +26,5 @@ en:
     updated: "%{class_name} was successfully updated."
   account:
     unauthorized: "Account unauthorized"
+    log_in: 'You have logged in.'
+    sign_out: 'You have signed out.'

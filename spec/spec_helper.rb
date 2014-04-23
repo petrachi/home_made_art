@@ -42,10 +42,10 @@ RSpec.configure do |config|
 end
 
 def sign_in user
-  visit 'sign_in'
+    visit 'sign_in'
 
-  fill_in 'sign_in[email]', with: user.email
-  fill_in 'sign_in[password]', with: user.password
+    fill_in 'sign_in[email]', with: user.email
+    fill_in 'sign_in[password]', with: user.password
 
-  click_on 'Save Sign in'
+    click_on 'Save Sign in'
 end
