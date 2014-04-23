@@ -1,8 +1,8 @@
 class ArticlesController < ApplicationController
   include UserArea
-  
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
-  before_action :check_ownership!, only: [:new, :edit, :create, :update, :destroy]
+
+  before_action :set_article, except: [:index, :new]
+  before_action :check_ownership!, except: [:index, :show]
 
   def index
     @articles = get_articles
