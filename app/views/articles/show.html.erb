@@ -10,7 +10,7 @@
 
 <p>
   <strong>Content:</strong>
-  <%= @article.content %>
+  <%= raw @article.content %>
 </p>
 
 <p>
@@ -28,5 +28,5 @@
   <%= @article.user %>
 </p>
 
-<%= link_to 'Edit', [@user, @article] %> |
+<%= link_to 'Edit', edit_user_article_path(@user, @article) %> |
 <%= link_to 'Back', user_articles_path %>
