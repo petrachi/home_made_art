@@ -17,6 +17,7 @@ gem 'turbolinks'
 gem 'compass-rails'
 gem 'font-awesome-rails', '~> 4.0.3.1'
 
+gem 'ckeditor'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
