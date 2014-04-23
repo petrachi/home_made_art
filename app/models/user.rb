@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
 
   validates :name, :email, presence: true
   validates :email, uniqueness: true
+
+  def self.get_by_id id
+    find_by(id: id)
+  end
 end
