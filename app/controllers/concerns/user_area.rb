@@ -12,7 +12,7 @@ module UserArea
   end
   
   def has_ownership?
-    current_user && @user.id == current_user.id
+    current_user && @user == current_user
   end
   
   def check_ownership!
