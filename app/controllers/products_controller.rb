@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
     if @product.update product_params
       redirect_to @product, notice: I18n.t('model.updated', class_name: @product.class)
     else
-      render action: :new
+      render action: :edit
     end
   end
 

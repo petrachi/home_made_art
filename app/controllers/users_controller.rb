@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if @user.update user_params
       redirect_to @user, notice: I18n.t('model.updated', class_name: @user.class)
     else
-      render action: :new
+      render action: :edit
     end
   end
 
